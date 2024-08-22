@@ -1,0 +1,24 @@
+
+services:
+  nerfstud:
+    image: nerfstud
+    shm_size: 16gb
+    build:
+      context: .
+      args:
+        CUDA_VERSION: 11.8.0
+        CUDA_ARCHITECTURES: 86
+        OS_VERSION: 22.04
+    command: /bin/bash
+    stdin_open: true 
+    tty: true
+    ports:
+      - "7007:7007"
+    volumes:
+      - ./:/workspace
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - count: all
+              capabilities: [gpu]
