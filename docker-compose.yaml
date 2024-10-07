@@ -1,0 +1,22 @@
+
+services:
+  nerfstudio:
+    image: nerfstudio
+    shm_size: 16gb
+    build:
+      context: .
+      args:
+        CUDA_ARCHITECTURES: 86;89
+    command: /bin/bash
+    stdin_open: true 
+    tty: true
+    ports:
+      - "7007:7007"
+    volumes:
+      - ./:/workspace
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - count: all
+              capabilities: [gpu]
